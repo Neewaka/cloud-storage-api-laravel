@@ -76,7 +76,9 @@ class StorageController extends Controller
                 $dbFile->fileTitle = $fileName;
                 $dbFile->size = Storage::size($path);
                 $dbFile->directory = $dirname ? $dirname : null;
-                $dbFile->delete_at = date('Y-m-d H:i:s', time() + 10800 + $params['expires_in']);
+                if (array_key_exists('expires_in', $params)) {
+                    $dbFile->delete_at = date('Y-m-d H:i:s', time() + 10800 + $params['expires_in']);
+                }
                 $dbFile->save();
 
                 return response()->json([
@@ -302,7 +304,6 @@ class StorageController extends Controller
      */
     public function getUserInfo(Request $request)
     {
-
         $user = $request->user();
 
         return response()->json([
