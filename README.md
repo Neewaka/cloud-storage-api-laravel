@@ -1,57 +1,69 @@
 
-## cloud-storage-api-laravel
 ## API Routes
 
-One or two sentence description of what endpoint does.
+### Authentication
 
-### Method title
-
-> Version history note.
-
-Description of the method.
-
-```plaintext
-METHOD /endpoint
-```
++ `/api/auth/register` - `GET` - user registers on platform and gets token for using storage.
 
 Supported attributes:
 
-| Attribute                | Type     | Required | Description           |
-|:-------------------------|:---------|:---------|:----------------------|
-| `attribute`              | datatype | Yes      | Detailed description. |
-| `attribute` **(<tier>)** | datatype | No       | Detailed description. |
-| `attribute`              | datatype | No       | Detailed description. |
-| `attribute`              | datatype | No       | Detailed description. |
+| Attribute                | Type     | Required |
+|:-------------------------|:---------|:---------|
+| `name`                   | string  | Yes      | 
+| `email`              | string | Yes       | 
+| `password`              | string | Yes       | 
 
-If successful, returns [`<status_code>`](../../api/index.md#status-codes) and the following
-response attributes:
++ `/api/auth/login` - `GET` - user logs in on platform and gets token for using storage.
 
-| Attribute                | Type     | Description           |
-|:-------------------------|:---------|:----------------------|
-| `attribute`              | datatype | Detailed description. |
-| `attribute` **(<tier>)** | datatype | Detailed description. |
+Supported attributes:
 
-Example request:
+| Attribute                | Type     | Required |
+|:-------------------------|:---------|:---------|
+| `email`              | string | Yes       | 
+| `password`              | string | Yes       | 
 
-```shell
-curl --header "PRIVATE-TOKEN: <your_access_token>" "https://gitlab.example.com/api/v4/endpoint?parameters"
-```
 
-Example response:
-
-```json
-[
-  {
-  }
-]
-```
-
++ `/api/auth/logout` - `GET` - user logs in on platform and gets token for using storage.
 
 ### Working with storage
 
 You may add name of directory in {dirname} field to manage file located in this directory. 
 
-+ `/file/{dirname?}` - `POST` - uploading a file.
-+ `/file/{dirname?}/{name}` - `GET` - get file with specified name.
-+ `/file/{dirname?}/{name}` - `PUT` - rename file with specified name.
-+ `/file/{dirname?}/{name}` - `POST` - delete file with specified name.
+
++ `/api/file/{dirname?}` - `POST` - `uploading a file.`
+
+Supported attributes:
+
+| Attribute                | Type     | Required |
+|:-------------------------|:---------|:---------|
+| `file`                   | file     | Yes      | 
+| `expires_in`             | int      | No       | 
+
++ `/api/file/{dirname?}/{name}` - `GET` - get file with specified name.
++ `/api/file/{dirname?}/{name}` - `PUT` - rename file with specified name.
++ `/api/file/{dirname?}/{name}` - `POST` - delete file with specified name.
++ `/api/file/publish/{dirname?}/{name}` - `POST` - publish file with specified name and get public link on file which can be used instead of attribute `name` in `GET` method of file.
++ `/file/list` - `GET` - get list of all files contained in user storage.
+
+### Working with directories
+
++ `/api/directory/create` - `POST` - create new directory in user storage.
+
+Supported attributes:
+
+| Attribute                | Type     | Required |
+|:-------------------------|:---------|:---------|
+| `dirname`                   | string     | Yes      | 
+
++ `/api/directory/size/{dirname?}` - `GET` - get size of storage when no `dirname` attribute given otherwise get size of specifed directory.
+
+### User information
+
++ `/api/user/info` - `GET` - get basic information about current user.
+
+
+
+
+
+
+
