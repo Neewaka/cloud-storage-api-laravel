@@ -21,7 +21,7 @@ class FileUsed
      */
     public function __construct()
     {
-        //
+        info('con');
     }
 
     /**

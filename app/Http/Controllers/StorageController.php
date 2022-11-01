@@ -17,7 +17,7 @@ class StorageController extends Controller
     public function __construct()
     {
         //Event for deleting expired files
-        event(new FileUsed());
+        // event(new FileUsed());
     }
 
     /**
@@ -287,7 +287,9 @@ class StorageController extends Controller
      * @return array 
      */
     public function getList(Request $request)
-    {
+    {  
+        info('net');
+        FileUsed::dispatch();
         $data = File::select('fileTitle', 'directory')->where('user_id', $request->user()->id)->get();
 
         return response()->json([
